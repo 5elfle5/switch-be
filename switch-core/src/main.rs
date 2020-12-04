@@ -20,9 +20,9 @@ async fn hello() -> impl Responder {
     HttpResponse::Ok().body(select_answer("shmoopie doop"))
 }
 
-#[post("/echo")]
+#[post("/say")]
 async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
+    HttpResponse::Ok().body(select_answer(req_body.as_str()))
 }
 
 async fn manual_hello() -> impl Responder {
