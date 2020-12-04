@@ -35,3 +35,5 @@ lerna-debug.log*
 switch-core/target/rls/
 
 switch-core/Cargo.lock
+
+switch-core/target/
