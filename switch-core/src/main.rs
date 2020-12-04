@@ -1,4 +1,6 @@
+mod handlers;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use crate::handlers::{select_answer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -15,7 +17,7 @@ async fn main() -> std::io::Result<()> {
 
 #[get("/")]
 async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+    HttpResponse::Ok().body(select_answer("shmoopie doop"))
 }
 
 #[post("/echo")]
@@ -24,5 +26,5 @@ async fn echo(req_body: String) -> impl Responder {
 }
 
 async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
+    HttpResponse::Ok().body(select_answer("shmoopie doop"))
 }
