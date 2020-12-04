@@ -1,57 +1,28 @@
-use actix_web::{middleware, App, HttpServer};
-use actix_web::web::{resource, get};
-mod handlers;
-mod blades;
+use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    std::fs::create_dir_all("./tmp").unwrap();
-    std::fs::create_dir_all("./tmp/preview").unwrap();
-
     HttpServer::new(|| {
-        App::new().wrap(middleware::Logger::default()).service(
-            resource("/")
-                .route(get().to(handlers::index))
-        )
+        App::new()
+            .service(hello)
+            .service(echo)
+            .route("/hey", web::get().to(manual_hello))
     })
-    .bind("0.0.0.0:3000")?
+    .bind("127.0.0.1:8080")?
     .run()
     .await
 }
 
-// use std::io::{ stdin, Stdin };
-// use crate::blades::BladesError;
+#[get("/")]
+async fn hello() -> impl Responder {
+    HttpResponse::Ok().body("Hello world!")
+}
 
-// mod blades;
+#[post("/echo")]
+async fn echo(req_body: String) -> impl Responder {
+    HttpResponse::Ok().body(req_body)
+}
 
-// fn main() -> Result<(), blades::BladesError> {
-//     let mut input_channel = stdin();
-
-//     println!("switch switch");
-//     loop {
-//         match converse(&mut input_channel) {
-//             Err(blades::BladesError{ details: "blades!" }) => break,
-//             _ => continue
-//         }
-//     }
-//     Ok(())
-// }
-
-// fn converse(stdin: &mut Stdin) -> Result<(), blades::BladesError> {
-//     let mut buffer = String::new();
-//     stdin.read_line(&mut buffer)?;
-//     let answer = select_answer(buffer.trim_end());
-//     println!("{}", answer.to_string());
-//     if answer.trim_end().eq("blades!") {
-//         return Err(BladesError::new("blades!"));
-//     }
-//     Ok(())
-// }
-
-// fn select_answer(input: &str) -> String {
-//     if input.contains("?") { return "poppin'".to_string(); }
-//     match input {
-//         "bye!" => "blades!".to_string(),
-//         _ => "shmoopie doop".to_string()
-//     }
-// }
+async fn manual_hello() -> impl Responder {
+    HttpResponse::Ok().body("Hey there!")
+}

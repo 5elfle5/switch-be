@@ -7,16 +7,4 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-futures = "0.3.1"
-actix-multipart = "0.2.0"
-actix-web = "2.0.0"
-actix-rt = "1.0.0"
-actix-threadpool = "0.3.1"
-bytes = { version = "0.5", features = ["serde"] }
-serde = { version = "1.0.104", features = ["derive"] }
-serde_json = "1.0"
-image-base64 = "0.1.0"
-reqwest = "0.10.4"
-image = "0.23.4"
-uuid = { version = "0.8", features = ["serde", "v4"] }
-
+actix-web = "3"

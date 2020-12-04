@@ -1,6 +1,6 @@
 // use std::io::{ stdin, Stdin };
 // use crate::blades::BladesError;
-use actix_web::{HttpResponse};
+// use actix_web::{HttpResponse};
 // use futures::StreamExt;
 
 // pub fn converse(stdin: &mut Stdin) -> Result<(), BladesError> {
@@ -22,12 +22,12 @@ use actix_web::{HttpResponse};
 //     }
 // }
 
-pub fn index() -> HttpResponse {
-    HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(include_str!("../static/form.html"))
-}
+// pub fn index() -> HttpResponse {
+//     HttpResponse::Ok()
+//         .content_type("text/html; charset=utf-8")
+//         .body(include_str!("../static/form.html"))
+// }
 
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
-}
+// async fn echo(req_body: String) -> impl Responder {
+//     HttpResponse::Ok().body(req_body)
+// }
