@@ -37,3 +37,5 @@ switch-core/target/rls/
 switch-core/Cargo.lock
 
 switch-core/target/
+
+switch-core/.idea/
