@@ -27,3 +27,7 @@ pub fn index() -> HttpResponse {
         .content_type("text/html; charset=utf-8")
         .body(include_str!("../static/form.html"))
 }
+
+async fn echo(req_body: String) -> impl Responder {
+    HttpResponse::Ok().body(req_body)
+}
