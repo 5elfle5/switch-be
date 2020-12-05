@@ -1,7 +1,7 @@
 mod handlers;
 use actix_web::{http, get, post, web, App, HttpResponse, HttpServer, Responder};
 use actix_cors::Cors;
-use serde;
+use serde::{Serialize, Deserialize};
 use crate::handlers::{select_answer};
 
 #[actix_web::main]
@@ -20,7 +20,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(cors)
             .service(hello)
-            .service(echo)
+            .service(say)
             .route("/hey", web::get().to(manual_hello))
     })
     .bind("127.0.0.1:8080")?
@@ -34,12 +34,11 @@ async fn hello() -> impl Responder {
 }
 
 #[post("/say")]
-async fn echo(req_body: String) -> impl Responder {
-    println!("{}", req_body);
-    HttpResponse::Ok().body(select_answer(req_body.as_str()))
+async fn say(req_body: String) -> impl Responder {
+    web::Json(Reply::new(select_answer(req_body.as_str())))
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 struct Reply {
     text: String
 }
