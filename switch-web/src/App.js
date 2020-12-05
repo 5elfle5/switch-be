@@ -6,8 +6,8 @@ function App() {
 
   useEffect(() => {
     fetch("http://localhost:8080/say", { method: 'POST', body: 'will you be my friend?'})
-      .then(response => { console.log(response); })
-      .then(data => setData(data));
+      .then((response) => response.json())
+      .then(data => setData(JSON.stringify(data)));
   });
 
   return (

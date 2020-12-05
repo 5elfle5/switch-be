@@ -39,3 +39,5 @@ switch-core/Cargo.lock
 switch-core/target/
 
 switch-core/.idea/
+
+switch-web/.eslintcache

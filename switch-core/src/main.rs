@@ -1,15 +1,16 @@
 mod handlers;
 use actix_web::{http, get, post, web, App, HttpResponse, HttpServer, Responder};
 use actix_cors::Cors;
+use serde;
 use crate::handlers::{select_answer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         let cors = Cors::default()
-              .allowed_origin("http://localhost:3000/")
+              .allowed_origin("http://localhost:3000")
               .allowed_origin_fn(|origin, _req_head| {
-                  origin.as_bytes().ends_with(b".rust-lang.org")
+                  origin.as_bytes().ends_with(b"")
               })
               .allowed_methods(vec!["GET", "POST"])
               .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
@@ -34,9 +35,23 @@ async fn hello() -> impl Responder {
 
 #[post("/say")]
 async fn echo(req_body: String) -> impl Responder {
+    println!("{}", req_body);
     HttpResponse::Ok().body(select_answer(req_body.as_str()))
 }
 
+#[derive(Serialize)]
+struct Reply {
+    text: String
+}
+
+impl Reply {
+    pub fn new(text_: String) -> Reply {
+        Reply {
+            text: text_
+        }
+    }
+}
+
 async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body(select_answer("shmoopie doop"))
+    web::Json(Reply::new(select_answer("shmoopie doop")))
 }
