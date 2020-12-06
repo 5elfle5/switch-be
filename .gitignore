@@ -37,3 +37,6 @@ switch-core/target/rls/
 switch-core/Cargo.lock
 
 switch-core/target/
+
+switch-web/node_modules/
+
