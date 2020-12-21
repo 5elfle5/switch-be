@@ -40,3 +40,7 @@ switch-core/target/
 
 switch-web/node_modules/
 
+
+target/rls/debug/
+
+target/rls/
